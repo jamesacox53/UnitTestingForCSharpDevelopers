@@ -34,5 +34,14 @@ namespace TestNinja.UnitTests.Fundamentals
 
             Assert.AreEqual(result, expectedResult);
         }
+
+        [Test]
+        [Ignore("Test Ignore")]
+        public void Max_ArgumentsNegative_ReturnTheGreaterArgument()
+        {
+            int result = math.Max(-5, -4);
+
+            Assert.AreEqual(result, -4);
+        }
     }
 }
