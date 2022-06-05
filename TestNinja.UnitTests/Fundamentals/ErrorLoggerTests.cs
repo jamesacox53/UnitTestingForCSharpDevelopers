@@ -31,5 +31,19 @@ namespace TestNinja.UnitTests.Fundamentals
         {
             Assert.That(() => { logger.Log(error); }, Throws.ArgumentNullException);
         }
+
+        [Test]
+        public void Log_ValidError_RaiseErrorLoggedEvent()
+        {
+            Guid id = Guid.Empty;
+            int count = 0;
+
+            logger.ErrorLogged += ((Object sender, Guid args) => { id = args; count++; });
+
+            logger.Log("a");
+
+            // Assert.That(count, Is.EqualTo(1));
+            Assert.That(id, Is.Not.EqualTo(Guid.Empty));
+        }
     }
 }
