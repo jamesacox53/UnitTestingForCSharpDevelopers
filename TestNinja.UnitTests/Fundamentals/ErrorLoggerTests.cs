@@ -22,5 +22,14 @@ namespace TestNinja.UnitTests.Fundamentals
 
             Assert.IsTrue((logger.LastError) == "a");
         }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void Log_InvalidError_ThrowArgumentNullException(string error)
+        {
+            Assert.That(() => { logger.Log(error); }, Throws.ArgumentNullException);
+        }
     }
 }
