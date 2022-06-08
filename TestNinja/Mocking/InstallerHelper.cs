@@ -10,7 +10,7 @@ namespace TestNinja.Mocking
 
         public InstallerHelper(IFileDownloader fileDownloader = null)
         {
-            _fileDownloader = fileDownloader;
+            _fileDownloader = fileDownloader ?? new FileDownloader();
         }
 
         public bool DownloadInstaller(string customerName, string installerName)

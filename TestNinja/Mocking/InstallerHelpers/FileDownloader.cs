@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TestNinja.Mocking.InstallerHelpers
 {
-    internal class FileDownloader
+    internal class FileDownloader : IFileDownloader
     {
         public void DownloadFile(string url, string filePath)
         {
