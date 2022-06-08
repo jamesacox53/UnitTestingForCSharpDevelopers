@@ -4,11 +4,19 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using TestNinja.Mocking.VideoServices;
 
 namespace TestNinja.Mocking
 {
     public class VideoService
     {
+       private readonly IVideoRepository _repository;
+
+        public VideoService(IVideoRepository repository = null)
+        {
+            _repository = repository ?? new VideoRepository(); 
+        }
+
         public string ReadVideoTitle()
         {
             var str = File.ReadAllText("video.txt");
@@ -34,6 +42,20 @@ namespace TestNinja.Mocking
 
                 return String.Join(",", videoIds);
             }
+        }
+
+        public string GetUnprocessedVideosAsCsvRefactored()
+        {
+            List<int> videoIds = new List<int>();
+
+            IEnumerable<Video> videos = _repository.GetUnprocessedVideos();
+
+            foreach (var v in videos)
+            {
+                videoIds.Add(v.Id);
+            }
+
+            return String.Join(",", videoIds);
         }
     }
 
