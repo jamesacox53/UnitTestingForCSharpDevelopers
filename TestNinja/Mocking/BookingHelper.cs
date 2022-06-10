@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TestNinja.Mocking.BookingHelpers;
 
 namespace TestNinja.Mocking
 {
@@ -24,6 +25,25 @@ namespace TestNinja.Mocking
                         && booking.ArrivalDate < b.DepartureDate
                         || booking.DepartureDate > b.ArrivalDate
                         && booking.DepartureDate <= b.DepartureDate);
+
+            return overlappingBooking == null ? string.Empty : overlappingBooking.Reference;
+        }
+
+        public static string OverlappingBookingsExistRefactored(Booking booking, 
+                                 IBookingRepository bookingRepository = null)
+        {
+            bookingRepository = bookingRepository ?? new BookingRepository();
+
+            if (booking.Status == "Cancelled")
+                return string.Empty;
+
+            var bookings = bookingRepository.GetActiveBookings(booking.Id);
+            
+            var overlappingBooking =
+                bookings.FirstOrDefault(
+                    b =>
+                        booking.ArrivalDate < b.DepartureDate
+                        && b.ArrivalDate < booking.DepartureDate);
 
             return overlappingBooking == null ? string.Empty : overlappingBooking.Reference;
         }
