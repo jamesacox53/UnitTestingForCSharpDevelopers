@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TestNinja.Mocking.BookingHelpers;
+using TestNinja.Mocking.HousekeeperHelpers;
 
 namespace TestNinja.Mocking
 {
@@ -49,7 +50,7 @@ namespace TestNinja.Mocking
         }
     }
 
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public IQueryable<T> Query<T>()
         {
